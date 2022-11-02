@@ -44,26 +44,38 @@ function Read() {
 
   return (
     <>
-      <Link to={"/"}>CreatePost</Link>
+      <div class="container mt-3">
+        <Link to={"/"}>CreatePost</Link>
+        <table class="table table-dark table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          {APIData.map((data) => {
+            return (
+              <>
+                <tbody>
+                  <tr>
+                    <td>{data.id}</td>
 
-      <Table.Body>
-        {APIData.map((data) => {
-          return (
-            <>
-              {" "}
-              <Table.Row>
-                <Table.Cell>{data.id}</Table.Cell>
-                <Table.Cell>
-                  <Link to={`/APIData/${data.id}`}>{data.name} </Link>
-                </Table.Cell>
-                <Table.Cell>
-                  <button onClick={() => onDelete(data.id)}>delete</button>
-                </Table.Cell>
-              </Table.Row>
-            </>
-          );
-        })}
-      </Table.Body>
+                    <td>
+                      {" "}
+                      <Link to={`/APIData/${data.id}`}>{data.name} </Link>
+                    </td>
+                    <td>
+                      {" "}
+                      <button onClick={() => onDelete(data.id)}>delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </>
+            );
+          })}
+        </table>
+      </div>
       <ReactPaginate
         previousLabel={"prev"}
         nextLabel={"next"}

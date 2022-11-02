@@ -4,7 +4,7 @@ import { Table } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import moment from "moment/moment";
-
+import './Nav.css'
 function Todo() {
   const [APIData, setAPIData] = useState([]);
   const [offset, setOffset] = useState(0);
@@ -72,25 +72,42 @@ function Todo() {
         <button onClick={() => status("completed")}>Completed</button>
         <button onClick={() => status("pending")}>Pending</button>
       </div>
+      <div class="container mt-3">
+        <Link to={"/"}>CreatePost</Link>
+        <table class="table table-dark table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          {APIData.map((data) => {
+            return (
+              <>
+                <tbody>
+                  <tr>
+                    <td>{data.id}</td>
 
-      <Table.Body>
-        {APIData.map((data) => {
-          return (
-            <>
-              {" "}
-              <Table.Row>
-                <Table.Cell>{data.id}</Table.Cell>
-                <Table.Cell>{data.user_id}</Table.Cell>
-                <Table.Cell>{data.title}</Table.Cell>
-                <Table.Cell>
-                  {moment(data.due_on).format("DD/MM/YYYY")}
-                </Table.Cell>
-                <Table.Cell>{data.status}</Table.Cell>
-              </Table.Row>
-            </>
-          );
-        })}
-      </Table.Body>
+                    <td>
+                      {" "}
+                      {data.user_id}
+                    </td>
+                    <td>
+                      {" "}
+                      {data.title}
+                    </td>
+                    <td>
+                      {" "}
+                      {moment(data.due_on).format("DD/MM/YYYY")}{data.status}
+                    </td>
+                  </tr>
+                </tbody>
+              </>
+            );
+          })}
+        </table>
+      </div>
       <ReactPaginate
         previousLabel={"prev"}
         nextLabel={"next"}
@@ -98,7 +115,7 @@ function Todo() {
         breakClassName={"break-me"}
         pageCount={pageCount}
         marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={8}
         onPageChange={handlePageClick}
         containerClassName={"pagination justify-content-center"}
         subContainerClassName={"page-item"}
@@ -107,5 +124,6 @@ function Todo() {
     </>
   );
 }
+    
 
 export default Todo;
